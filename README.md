@@ -1,5 +1,9 @@
 # worker-comfyui
 
+This is a customized implementation of runpod worker, the image is for runpod serverless and it is basically used to generate videos using wan gguf model.
+Please use this link to test the runpod image on your serverless api endpoint-
+https://runpod.io/console/deploy?template=ivydq852px&ref=qdi9q13b
+
 > [ComfyUI](https://github.com/comfyanonymous/ComfyUI) as a serverless API on [RunPod](https://www.runpod.io/)
 
 <p align="center">
