@@ -1,5 +1,5 @@
-# Stage 1: Base image with common dependencies
-FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu22.04 AS base
+# Stage 1: Base image with common dependencies cuda:12.4.0-runtime-ubuntu22.04
+FROM nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04 AS base
 
 # Prevents prompts from packages asking for user input during installation
 ENV DEBIAN_FRONTEND=noninteractive
@@ -26,9 +26,9 @@ RUN apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 # Install uv
 RUN pip install uv
 
-# Install comfy-cli
+# Install comfy-cli pip install torch==2.5.1+cu124 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 RUN uv pip install comfy-cli --system
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+RUN pip install torch==2.5.1+cu124 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 # Install ComfyUI
 RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.29 --nvidia --skip-manager
 
