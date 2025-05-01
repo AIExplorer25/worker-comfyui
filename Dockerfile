@@ -1,5 +1,5 @@
-# Stage 1: Base image with common dependencies cuda:12.4.0-runtime-ubuntu22.04
-FROM nvidia/cuda:12.4.0-cudnn-runtime-ubuntu22.04 AS base
+# Stage 1: Base image with common dependencies cuda:12.4.0-runtime-ubuntu22.04  nvidia/cuda:12.4.0-runtime-ubuntu22.04
+FROM pytorch/pytorch:2.4.0-cuda12.4-cudnn9-runtime AS base
 
 # Prevents prompts from packages asking for user input during installation
 ENV DEBIAN_FRONTEND=noninteractive
