@@ -65,21 +65,15 @@ RUN cd /comfyui/custom_nodes && \
     pip install -r requirements.txt
 
 RUN cd /comfyui/custom_nodes && \
-    git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation.git && \
-    cd ComfyUI-Frame-Interpolation && \
-    pip install -r requirements.txt
+    git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation.git
 
 
 RUN cd /comfyui/custom_nodes && \
-    git clone https://github.com/pollockjj/ComfyUI-MultiGPU.git && \
-    cd ComfyUI-MultiGPU && \
-    pip install -r requirements.txt    
+    git clone https://github.com/pollockjj/ComfyUI-MultiGPU.git
     
 
 RUN cd /comfyui/custom_nodes && \
-    git clone https://github.com/Smirnov75/ComfyUI-mxToolkit.git && \
-    cd ComfyUI-mxToolkit && \
-    pip install -r requirements.txt   
+    git clone https://github.com/Smirnov75/ComfyUI-mxToolkit.git  
     
 # Change working directory to ComfyUI
 WORKDIR /comfyui
