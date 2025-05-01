@@ -32,6 +32,55 @@ RUN pip install torch==2.5.1+cu124 torchvision torchaudio --index-url https://do
 # Install ComfyUI
 RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.29 --nvidia --skip-manager
 
+
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/yolain/ComfyUI-Easy-Use.git && \
+    cd ComfyUI_essentials && \
+    pip install -r requirements.txt
+    
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/city96/ComfyUI-GGUF.git && \
+    cd ComfyUI-GGUF && \
+    pip install -r requirements.txt
+
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/yolain/ComfyUI-Easy-Use.git && \
+    cd ComfyUI-Easy-Use && \
+    pip install -r requirements.txt
+
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/WASasquatch/was-node-suite-comfyui.git && \
+    cd was-node-suite-comfyui && \
+    pip install -r requirements.txt
+    
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/kijai/ComfyUI-KJNodes.git && \
+    cd ComfyUI-KJNodes && \
+    pip install -r requirements.txt
+
+
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git && \
+    cd ComfyUI-VideoHelperSuite && \
+    pip install -r requirements.txt
+
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation.git && \
+    cd ComfyUI-Frame-Interpolation && \
+    pip install -r requirements.txt
+
+
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/pollockjj/ComfyUI-MultiGPU.git && \
+    cd ComfyUI-MultiGPU && \
+    pip install -r requirements.txt    
+    
+
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/Smirnov75/ComfyUI-mxToolkit.git && \
+    cd ComfyUI-mxToolkit && \
+    pip install -r requirements.txt   
+    
 # Change working directory to ComfyUI
 WORKDIR /comfyui
 
