@@ -34,7 +34,7 @@ RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.29 --nvidia
 
 
 RUN cd /comfyui/custom_nodes && \
-    git clone https://github.com/yolain/ComfyUI-Easy-Use.git && \
+    git clone https://github.com/cubiq/ComfyUI_essentials.git && \
     cd ComfyUI_essentials && \
     pip install -r requirements.txt
     
