@@ -30,7 +30,7 @@ RUN pip install uv
 RUN uv pip install comfy-cli --system
 RUN pip install torch==2.5.1+cu124 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 # Install ComfyUI
-RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.29 --nvidia --skip-manager
+RUN /usr/bin/yes | comfy --workspace /comfyui install --version 0.3.29 --nvidia
 
 
 RUN cd /comfyui/custom_nodes && \
