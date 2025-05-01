@@ -114,7 +114,28 @@ WORKDIR /comfyui
 
 # Create necessary directories upfront
 RUN mkdir -p models/checkpoints models/vae models/unet models/clip
-
+# Download checkpoints/vae/unet/clip models to include in image based on model type
+RUN bash -c '\
+  if [ "$MODEL_TYPE" = "wan" ]; then \
+    wget -O models/clip/umt5_xxl_fp8_e4m3fn_scaled.safetensors https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors && \
+    wget -O models/clip_vision/clip_vision_h.safetensors https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors && \
+    wget -O models/vae/wan_2.1_vae.safetensors https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors && \
+    wget -O models/unet/wan2.1-i2v-14b-480p-Q5_K_S.gguf https://huggingface.co/city96/Wan2.1-I2V-14B-480P-gguf/resolve/main/wan2.1-i2v-14b-480p-Q5_K_S.gguf && \
+    wget -O models/loras/bounceV_01.safetensors "https://civitai-delivery-worker-prod.5ac0637cfd0766c97916cefa3764fbdf.r2.cloudflarestorage.com/model/9728/bouncev01.Rr4w.safetensors?X-Amz-Expires=86400&response-content-disposition=attachment%3B%20filename%3D%22bounceV_01.safetensors%22&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=e01358d793ad6966166af8b3064953ad/20250430/us-east-1/s3/aws4_request&X-Amz-Date=20250430T173410Z&X-Amz-SignedHeaders=host&X-Amz-Signature=b8ccae35b8a2f5a6221ad2189a3ec38b42fd6aa2bb151d0b88e2c8af87e5c874" && \
+    wget -O models/loras/deepthroat_epoch_80.safetensors "https://civitai-delivery-worker-prod.5ac0637cfd0766c97916cefa3764fbdf.r2.cloudflarestorage.com/model/2983867/deepthroatEpoch80.2Ssf.safetensors?X-Amz-Expires=86400&response-content-disposition=attachment%3B%20filename%3D%22deepthroat_epoch_80.safetensors%22&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=e01358d793ad6966166af8b3064953ad/20250430/us-east-1/s3/aws4_request&X-Amz-Date=20250430T173404Z&X-Amz-SignedHeaders=host&X-Amz-Signature=e318871c1dcc549d65c0619aceed89e5e0deb020fdd029fa47849949e3ac39f2"; \
+  elif [ "$MODEL_TYPE" = "sd3" ]; then \
+    echo "SD3 selected, skipping downloads (uncomment lines to enable)"; \
+  elif [ "$MODEL_TYPE" = "flux1-schnell" ]; then \
+    wget -O models/unet/flux1-schnell.safetensors https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors && \
+    wget -O models/clip/clip_l.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors && \
+    wget -O models/clip/t5xxl_fp8_e4m3fn.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors && \
+    wget -O models/vae/ae.safetensors https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors; \
+  elif [ "$MODEL_TYPE" = "flux1-dev" ]; then \
+    wget -O models/clip/clip_l.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors && \
+    wget -O models/clip/t5xxl_fp8_e4m3fn.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors; \
+  elif [ "$MODEL_TYPE" = "flux1-dev-fp8" ]; then \
+    wget -O models/checkpoints/flux1-dev-fp8.safetensors https://huggingface.co/Comfy-Org/flux1-dev/resolve/main/flux1-dev-fp8.safetensors; \
+  fi'
 
 
 # Stage 3: Final image
