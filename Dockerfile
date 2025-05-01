@@ -113,7 +113,7 @@ ARG MODEL_TYPE=wan
 WORKDIR /comfyui
 
 # Create necessary directories upfront
-RUN mkdir -p models/checkpoints models/vae models/unet models/clip
+RUN mkdir -p models/checkpoints models/vae models/unet models/clip models/clip_vision models/loras
 # Download checkpoints/vae/unet/clip models to include in image based on model type
 RUN bash -c '\
   if [ "$MODEL_TYPE" = "wan" ]; then \
