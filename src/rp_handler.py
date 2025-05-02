@@ -338,8 +338,8 @@ def handler(job):
             if prompt_id in history and history[prompt_id].get("outputs"):
                 break
             else:
-                # Wait before trying again
-                time.sleep(COMFY_POLLING_INTERVAL_MS / 1000)
+                # Wait before trying again COMFY_POLLING_INTERVAL_MS
+                time.sleep(5)
                 retries += 1
         else:
             return {"error": "Max retries reached while waiting for image generation"}
