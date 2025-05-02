@@ -251,7 +251,7 @@ def process_output_images(outputs, job_id):
             mp4_files.append(os.path.join(COMFY_OUTPUT_PATH, filename))
 
     for vidfile in mp4_files:
-        print(f)
+        print(vidfile)
     print("Total .mp4 files:", len(mp4_files))
     # The image is in the output folder
     if len(mp4_files) >= 1:
