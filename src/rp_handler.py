@@ -245,17 +245,30 @@ def process_output_images(outputs, job_id):
     local_image_path = f"{COMFY_OUTPUT_PATH}/{output_images}"
 
     print(f"worker-comfyui - {local_image_path}")
+    mp4_files = []
+    for filename in os.listdir(COMFY_OUTPUT_PATH):
+        if filename.lower().endswith('.mp4'):
+            mp4_files.append(os.path.join(COMFY_OUTPUT_PATH, filename))
 
+    for vidfile in mp4_files:
+        print(f)
+    print("Total .mp4 files:", len(mp4_files))
     # The image is in the output folder
-    if os.path.exists(local_image_path):
+    if len(mp4_files) >= 1:
         if os.environ.get("BUCKET_ENDPOINT_URL", False):
             # URL to image in AWS S3
             image = rp_upload.upload_image(job_id, local_image_path)
             print("worker-comfyui - the image was generated and uploaded to AWS S3")
         else:
             # base64 image
-            image = base64_encode(local_image_path)
+            image = base64_encode(mp4_files[0])
             print("worker-comfyui - the image was generated and converted to base64")
+            for file_path in mp4_files:
+                try:
+                    os.remove(file_path)
+                    print(f"Deleted: {file_path}")
+                except Exception as e:
+                    print(f"Error deleting {file_path}: {e}")
 
         return {
             "status": "success",
