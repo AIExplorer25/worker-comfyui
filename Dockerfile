@@ -75,6 +75,9 @@ RUN cd /comfyui/custom_nodes && \
 
 RUN cd /comfyui/custom_nodes && \
     git clone https://github.com/Smirnov75/ComfyUI-mxToolkit.git  
+
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/pythongosssss/ComfyUI-Custom-Scripts.git 
     
 # Change working directory to ComfyUI
 WORKDIR /comfyui
