@@ -281,7 +281,20 @@ def process_output_images(outputs, job_id):
             "message": f"the image does not exist in the specified output folder: {local_image_path}",
         }
 
-
+def find_fullpath(data):
+    if isinstance(data, dict):
+        for key, value in data.items():
+            if key == "fullpath" and value:
+                return value
+            result = find_fullpath(value)
+            if result:
+                return result
+    elif isinstance(data, list):
+        for item in data:
+            result = find_fullpath(item)
+            if result:
+                return result
+    return None
 def handler(job):
     """
     The main function that handles a job of generating an image.
@@ -347,12 +360,18 @@ def handler(job):
         return {"error": f"Error waiting for image generation: {str(e)}"}
 
     # Get the generated image and return it as URL in an AWS bucket or as base64
-    images_result = process_output_images(history[prompt_id].get("outputs"), job["id"])
+    #images_result = process_output_images(history[prompt_id].get("outputs"), job["id"])
     check=history[prompt_id].get("outputs")
 
     result = {**check, "refresh_worker": REFRESH_WORKER}
+    fullpath = find_fullpath(result)
+    vidbase64=base64_encode(fullpath)
+    result2={
+            "status": "success",
+            "message": vidbase64,
+        }
 
-    return result
+    return result2
 
 
 # Start the handler only if this script is run directly
